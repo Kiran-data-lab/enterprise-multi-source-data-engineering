@@ -1,0 +1,58 @@
+Git-ready repository file inventory
+
+.env.example
+.gitignore
+Oracle Scripts/Oracle - view created.sql
+Oracle Scripts/Oracle_ORACLE_ETL-user.sql
+Oracle Scripts/Oracle_Query_1.sql
+Oracle Scripts/Oracle_Query_2.sql
+Oracle Scripts/update customers.sql
+README.md
+SQL Server scripts/Alter - login details of user.sql
+SQL Server scripts/Alter - script -2.sql
+SQL Server scripts/Alter-scripts-1.sql
+SQL Server scripts/Alter-scripts-2.sql
+SQL Server scripts/Create ETL_READER login to python connect.sql
+SQL Server scripts/SQL Server - Create Database_Schema.sql
+SQL Server scripts/SQL_Server - Load Inventory table.sql
+SQL Server scripts/SQL_Server - Load PRODUCTS table.sql
+SQL Server scripts/SQL_Server-INVENTORY table.sql
+SQL Server scripts/SQL_Server-PRODUCTS table.sql
+SQL Server scripts/Update products and Inventory.sql
+SQL Server scripts/Validation check.sql
+SQL Server scripts/Validation query.sql
+SQL Server scripts/alter script - user details.sql
+SQL Server scripts/sql queries views created.sql
+SQL Server scripts/table counts.sql
+Snowflake Scripts/Project-2_Snowflake_DBT_Airflow_Day-1.sql
+Snowflake Scripts/Project-2_Snowflake_DBT_Airflow_Day-2.sql
+Snowflake Scripts/Project-2_Snowflake_DBT_Airflow_Day-3.sql
+Snowflake Scripts/Project-2_Snowflake_DBT_Airflow_Day-4.sql
+Snowflake Scripts/Project-2_Snowflake_DBT_Airflow_Day-5.sql
+airflow/dags/enterprise_multi_source_dag.py
+audit_extractions.py
+dbt_enterprise/dbt_project.yml
+dbt_enterprise/macros/generate_schema_name.sql
+dbt_enterprise/models/marts/dim_customers.sql
+dbt_enterprise/models/marts/dim_products.sql
+dbt_enterprise/models/marts/fct_inventory.sql
+dbt_enterprise/models/marts/fct_orders.sql
+dbt_enterprise/models/marts/schema.yml
+dbt_enterprise/models/sources/raw_sources.yml
+dbt_enterprise/models/staging/schema.yml
+dbt_enterprise/models/staging/stg_oracle_customers.sql
+dbt_enterprise/models/staging/stg_oracle_orders.sql
+dbt_enterprise/models/staging/stg_sqlserver_inventory.sql
+dbt_enterprise/models/staging/stg_sqlserver_products.sql
+dbt_enterprise/profiles.example.yml
+docs/PROJECT_RUNBOOK.md
+docs/REPOSITORY_AUDIT.md
+generate_source_data.py
+ingestion/oracle/extract_oracle.py
+ingestion/sql_server/extract_sqlserver.py
+load_raw_to_snowflake.py
+requirements-project.txt
+run_source_pipeline.py
+test_connections.py
+test_snowflake_connection.py
+upload_to_snowflake_stage.py

@@ -1,0 +1,27 @@
+name: dbt_enterprise
+version: '1.0.0'
+config-version: 2
+
+profile: dbt_enterprise
+
+model-paths: ["models"]
+test-paths: ["tests"]
+macro-paths: ["macros"]
+
+clean-targets:
+  - "target"
+  - "dbt_packages"
+
+models:
+  dbt_enterprise:
+    staging:
+      +materialized: view
+      +schema: STAGING
+
+    intermediate:
+      +materialized: view
+      +schema: STAGING
+
+    marts:
+      +materialized: table
+      +schema: CURATED

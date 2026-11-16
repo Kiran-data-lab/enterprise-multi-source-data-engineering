@@ -1,0 +1,10 @@
+SELECT
+    INVENTORY_ID,
+    PRODUCT_ID,
+    UPPER(TRIM(WAREHOUSE_ID)) AS WAREHOUSE_ID,
+    QUANTITY_ON_HAND,
+    REORDER_LEVEL,
+    LAST_STOCK_UPDATE,
+    UPDATED_AT,
+    COALESCE(IS_DELETED, FALSE) AS IS_DELETED
+FROM {{ source('sqlserver_raw', 'raw_sqlserver_inventory') }}

@@ -1,0 +1,7 @@
+# Source ingestion runtime (WSL project virtual environment)
+oracledb
+pyodbc
+pandas
+pyarrow
+python-dotenv
+snowflake-connector-python

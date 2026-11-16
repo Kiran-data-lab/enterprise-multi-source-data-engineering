@@ -1,0 +1,33 @@
+# Secrets and local environment files
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+secrets/
+
+# Python environments and bytecode
+.venv/
+venv/
+env/
+__pycache__/
+*.py[cod]
+
+# Runtime extracts and generated files
+data/
+*.log
+
+# dbt generated artifacts
+dbt_enterprise/target/
+dbt_enterprise/dbt_packages/
+dbt_enterprise/logs/
+
+# Airflow runtime files
+airflow/logs/
+airflow/airflow.db
+airflow/airflow.cfg
+airflow/standalone_admin_password.txt
+
+# OS/editor files
+.DS_Store
+Thumbs.db

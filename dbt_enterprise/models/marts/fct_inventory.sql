@@ -1,0 +1,20 @@
+SELECT
+    I.INVENTORY_ID,
+    I.PRODUCT_ID,
+    P.PRODUCT_NAME,
+    P.CATEGORY,
+    P.BRAND,
+    P.UNIT_PRICE,
+    I.WAREHOUSE_ID,
+    I.QUANTITY_ON_HAND,
+    I.REORDER_LEVEL,
+    CASE
+        WHEN I.QUANTITY_ON_HAND <= I.REORDER_LEVEL
+            THEN 'REORDER'
+        ELSE 'IN_STOCK'
+    END AS STOCK_STATUS,
+    I.LAST_STOCK_UPDATE
+FROM {{ ref('stg_sqlserver_inventory') }} I
+INNER JOIN {{ ref('dim_products') }} P
+    ON I.PRODUCT_ID = P.PRODUCT_ID
+WHERE I.IS_DELETED = FALSE

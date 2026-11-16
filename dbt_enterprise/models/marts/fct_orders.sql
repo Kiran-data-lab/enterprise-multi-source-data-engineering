@@ -1,0 +1,15 @@
+SELECT
+    O.ORDER_ID,
+    O.CUSTOMER_ID,
+    C.CUSTOMER_NAME,
+    C.COUNTRY,
+    C.CUSTOMER_TYPE,
+    O.ORDER_DATE,
+    O.ORDER_AMOUNT,
+    O.ORDER_STATUS,
+    O.PAYMENT_METHOD,
+    O.CURRENCY_CODE,
+    O.CREATED_AT
+FROM {{ ref('stg_oracle_orders') }} O
+INNER JOIN {{ ref('dim_customers') }} C
+    ON O.CUSTOMER_ID = C.CUSTOMER_ID

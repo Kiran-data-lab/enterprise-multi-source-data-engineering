@@ -1,0 +1,16 @@
+version: 2
+
+sources:
+  - name: oracle_raw
+    database: ENTERPRISE_DW
+    schema: RAW
+    tables:
+      - name: raw_oracle_customers
+      - name: raw_oracle_orders
+
+  - name: sqlserver_raw
+    database: ENTERPRISE_DW
+    schema: RAW
+    tables:
+      - name: raw_sqlserver_products
+      - name: raw_sqlserver_inventory

@@ -1,0 +1,50 @@
+version: 2
+
+models:
+  - name: stg_oracle_customers
+    columns:
+      - name: CUSTOMER_ID
+        data_tests:
+          - unique
+          - not_null
+      - name: FIRST_NAME
+        data_tests:
+          - not_null
+
+  - name: stg_oracle_orders
+    columns:
+      - name: ORDER_ID
+        data_tests:
+          - unique
+          - not_null
+      - name: CUSTOMER_ID
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('stg_oracle_customers')
+                field: CUSTOMER_ID
+
+  - name: stg_sqlserver_products
+    columns:
+      - name: PRODUCT_ID
+        data_tests:
+          - unique
+          - not_null
+      - name: PRODUCT_NAME
+        data_tests:
+          - not_null
+
+  - name: stg_sqlserver_inventory
+    columns:
+      - name: INVENTORY_ID
+        data_tests:
+          - unique
+          - not_null
+      - name: PRODUCT_ID
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('stg_sqlserver_products')
+                field: PRODUCT_ID

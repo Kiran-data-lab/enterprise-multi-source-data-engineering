@@ -1,0 +1,157 @@
+SELECT
+    USER AS CURRENT_USER,
+    SYS_CONTEXT('USERENV', 'CON_NAME') AS CONTAINER_NAME
+FROM DUAL;
+
+---csutomers table
+CREATE TABLE CUSTOMERS (
+    CUSTOMER_ID       NUMBER(10) PRIMARY KEY,
+    FIRST_NAME        VARCHAR2(50) NOT NULL,
+    LAST_NAME         VARCHAR2(50) NOT NULL,
+    EMAIL             VARCHAR2(150),
+    PHONE             VARCHAR2(20),
+    CITY              VARCHAR2(50),
+    COUNTRY           VARCHAR2(50),
+    CUSTOMER_TYPE     VARCHAR2(20),
+    REGISTRATION_DATE DATE,
+    CUSTOMER_STATUS   VARCHAR2(20),
+    CREATED_AT        TIMESTAMP DEFAULT SYSTIMESTAMP,
+    UPDATED_AT        TIMESTAMP
+);
+
+--orders table
+CREATE TABLE ORDERS (
+    ORDER_ID       NUMBER(12) PRIMARY KEY,
+    CUSTOMER_ID    NUMBER(10) NOT NULL,
+    ORDER_DATE     DATE NOT NULL,
+    ORDER_AMOUNT   NUMBER(12,2),
+    ORDER_STATUS   VARCHAR2(20),
+    PAYMENT_METHOD VARCHAR2(30),
+    CURRENCY_CODE  VARCHAR2(3),
+    CREATED_AT     TIMESTAMP DEFAULT SYSTIMESTAMP,
+
+    CONSTRAINT FK_ORDERS_CUSTOMERS
+        FOREIGN KEY (CUSTOMER_ID)
+        REFERENCES CUSTOMERS(CUSTOMER_ID)
+);
+
+--populate costumers table with 5000 rows
+INSERT INTO CUSTOMERS (
+    CUSTOMER_ID,
+    FIRST_NAME,
+    LAST_NAME,
+    EMAIL,
+    PHONE,
+    CITY,
+    COUNTRY,
+    CUSTOMER_TYPE,
+    REGISTRATION_DATE,
+    CUSTOMER_STATUS,
+    UPDATED_AT
+)
+SELECT
+    LEVEL,
+    CASE MOD(LEVEL, 10)
+        WHEN 0 THEN 'Kiran'
+        WHEN 1 THEN 'Anita'
+        WHEN 2 THEN 'Ravi'
+        WHEN 3 THEN 'John'
+        WHEN 4 THEN 'David'
+        WHEN 5 THEN 'Sravani'
+        WHEN 6 THEN 'Michael'
+        WHEN 7 THEN 'Priya'
+        WHEN 8 THEN 'Robert'
+        ELSE 'Sarah'
+    END,
+    CASE MOD(LEVEL, 8)
+        WHEN 0 THEN 'Rao'
+        WHEN 1 THEN 'Kumar'
+        WHEN 2 THEN 'Sharma'
+        WHEN 3 THEN 'Smith'
+        WHEN 4 THEN 'Wilson'
+        WHEN 5 THEN 'Reddy'
+        WHEN 6 THEN 'Brown'
+        ELSE 'Taylor'
+    END,
+    'customer' || LEVEL || '@example.com',
+    '+91-' || TO_CHAR(9000000000 + LEVEL),
+    CASE MOD(LEVEL, 5)
+        WHEN 0 THEN 'Hyderabad'
+        WHEN 1 THEN 'Bangalore'
+        WHEN 2 THEN 'Mumbai'
+        WHEN 3 THEN 'Delhi'
+        ELSE 'Chennai'
+    END,
+    CASE MOD(LEVEL, 4)
+        WHEN 0 THEN 'India'
+        WHEN 1 THEN 'USA'
+        WHEN 2 THEN 'Germany'
+        ELSE 'Netherlands'
+    END,
+    CASE MOD(LEVEL, 3)
+        WHEN 0 THEN 'PREMIUM'
+        WHEN 1 THEN 'STANDARD'
+        ELSE 'BUSINESS'
+    END,
+    DATE '2022-01-01' + MOD(LEVEL * 37, 1460),
+    CASE MOD(LEVEL, 10)
+        WHEN 0 THEN 'INACTIVE'
+        ELSE 'ACTIVE'
+    END,
+    SYSTIMESTAMP
+FROM DUAL
+CONNECT BY LEVEL <= 5000;
+
+COMMIT;
+
+---populate orders with 20000 rows
+INSERT INTO ORDERS (
+    ORDER_ID,
+    CUSTOMER_ID,
+    ORDER_DATE,
+    ORDER_AMOUNT,
+    ORDER_STATUS,
+    PAYMENT_METHOD,
+    CURRENCY_CODE
+)
+SELECT
+    LEVEL,
+    MOD(LEVEL * 37, 5000) + 1,
+    DATE '2024-01-01' + MOD(LEVEL * 13, 1000),
+    ROUND(100 + MOD(LEVEL * 7919, 99000) / 100, 2),
+    CASE MOD(LEVEL, 5)
+        WHEN 0 THEN 'CANCELLED'
+        WHEN 1 THEN 'PENDING'
+        ELSE 'COMPLETED'
+    END,
+    CASE MOD(LEVEL, 4)
+        WHEN 0 THEN 'CREDIT_CARD'
+        WHEN 1 THEN 'UPI'
+        WHEN 2 THEN 'NET_BANKING'
+        ELSE 'DEBIT_CARD'
+    END,
+    CASE MOD(LEVEL, 4)
+        WHEN 0 THEN 'INR'
+        WHEN 1 THEN 'USD'
+        WHEN 2 THEN 'EUR'
+        ELSE 'INR'
+    END
+FROM DUAL
+CONNECT BY LEVEL <= 20000;
+
+COMMIT;
+
+--verify source data
+SELECT 'CUSTOMERS' AS TABLE_NAME, COUNT(*) AS TOTAL_RECORDS
+FROM CUSTOMERS
+UNION ALL
+SELECT 'ORDERS', COUNT(*)
+FROM ORDERS;
+
+--validate relationship
+SELECT COUNT(*) AS ORPHAN_ORDERS
+FROM ORDERS O
+LEFT JOIN CUSTOMERS C
+    ON O.CUSTOMER_ID = C.CUSTOMER_ID
+WHERE C.CUSTOMER_ID IS NULL;
+
