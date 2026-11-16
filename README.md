@@ -331,7 +331,7 @@ Refer to [PROJECT_RUNBOOK.md](docs/PROJECT_RUNBOOK.md) for the complete setup, c
 
 **Kiran Kumar**
 
-Senior Software Engineer | Database Engineering | Data Engineering
+Senior Software Engineer | Data Warehousing | Data Engineering | Database Modelling | Database Designing
 
 GitHub: [Kiran-data-lab](https://github.com/Kiran-data-lab)
 
